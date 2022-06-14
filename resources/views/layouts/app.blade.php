@@ -215,15 +215,16 @@
                                         <!-- Dropdown -->
                                         <li>
                                             <a class="dropdown-item" href="#">
-                                            Dokkumen Kadaluarsa
+                                            Dokumen Kadaluarsa
                                             </a>
                                         </li>
                                         <!-- Dropdown -->
                                         <li>
-                                            <a class="dropdown-item" href="#">
+                                            <a class="dropdown-item" href="{{route('doc.upload')}}">
                                             Upload Dokumen
                                             </a>
                                         </li>
+                                        <li><hr class="dropdown-divider"></li>
                                         <a class="dropdown-item" href="{{ route('logout') }}"
                                         onclick="event.preventDefault();
                                                         document.getElementById('logout-form').submit();">
