@@ -24,5 +24,6 @@ Auth::routes(['register' => false]);
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::middleware(['auth'])->group(function () {
-    Route::get('/documen', [DokumenController::class, 'upload'])->name('doc.upload');
+    Route::get('/documentform', [DokumenController::class, 'uploadform'])->name('doc.form');
+    Route::post('/documentupload', [DokumenController::class, 'upload'])->name('doc.upload');
 });

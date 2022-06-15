@@ -220,7 +220,7 @@
                                         </li>
                                         <!-- Dropdown -->
                                         <li>
-                                            <a class="dropdown-item" href="{{route('doc.upload')}}">
+                                            <a class="dropdown-item" href="{{route('doc.form')}}">
                                             Upload Dokumen
                                             </a>
                                         </li>
