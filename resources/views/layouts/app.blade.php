@@ -53,14 +53,14 @@
                                     @foreach($dataMenu as $item)
                                     @if($item->level === 1 && $item->parentId === 100)
                                         <li>
-                                            <a class="dropdown-item" href="#">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
+                                            <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
                                                 @if($item->isParent) <!-- <== hilangkan data kosong jika tidak ada sub -->
                                                     <ul class="dropdown-menu dropdown-submenu">
                                                 @endif
                                                 @foreach($dataMenu as $item1)
                                                     @if($item1->level === 2 && $item1->parentId === $item->id)
                                                         <li>
-                                                            <a class="dropdown-item" href="#">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
+                                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
                                                         </li>
                                                     @endif
                                                 @endforeach
@@ -82,14 +82,14 @@
                                     @foreach($dataMenu as $item)
                                     @if($item->level === 1 && $item->parentId === 200)
                                         <li>
-                                            <a class="dropdown-item" href="#">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
+                                            <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
                                                 @if($item->isParent) <!-- <== hilangkan data kosong jika tidak ada sub -->
                                                     <ul class="dropdown-menu dropdown-submenu">
                                                 @endif
                                                 @foreach($dataMenu as $item1)
                                                     @if($item1->level === 2 && $item1->parentId === $item->id)
                                                         <li>
-                                                            <a class="dropdown-item" href="#">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
+                                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
                                                         </li>
                                                     @endif
                                                 @endforeach
@@ -111,14 +111,14 @@
                                     @foreach($dataMenu as $item)
                                     @if($item->level === 1 && $item->parentId === 300)
                                         <li>
-                                            <a class="dropdown-item" href="#">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
+                                            <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
                                                 @if($item->isParent) <!-- <== hilangkan data kosong jika tidak ada sub -->
                                                     <ul class="dropdown-menu dropdown-submenu">
                                                 @endif
                                                 @foreach($dataMenu as $item1)
                                                     @if($item1->level === 2 && $item1->parentId === $item->id)
                                                         <li>
-                                                            <a class="dropdown-item" href="#">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
+                                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
                                                         </li>
                                                     @endif
                                                 @endforeach
@@ -140,14 +140,14 @@
                                     @foreach($dataMenu as $item)
                                     @if($item->level === 1 && $item->parentId === 400)
                                         <li>
-                                            <a class="dropdown-item" href="#">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
+                                            <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
                                                 @if($item->isParent) <!-- <== hilangkan data kosong jika tidak ada sub -->
                                                     <ul class="dropdown-menu dropdown-submenu">
                                                 @endif
                                                 @foreach($dataMenu as $item1)
                                                     @if($item1->level === 2 && $item1->parentId === $item->id)
                                                         <li>
-                                                            <a class="dropdown-item" href="#">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
+                                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
                                                         </li>
                                                     @endif
                                                 @endforeach
