@@ -17,6 +17,8 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito" rel="stylesheet">
 
     <!-- Styles -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.css" />
+
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
     <link href="{{ asset('css/main.css') }}" rel="stylesheet">
 </head>
@@ -42,200 +44,201 @@
                     <!-- Left Side Of Navbar -->
                     @guest
                     @else
-                        <ul class="navbar-nav">
-                            <!-- Dropdown -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="ndProfil" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                    <ul class="navbar-nav">
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ndProfil" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Profil
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="ndProfil">
-                                    @foreach($dataMenu as $item)
-                                    @if($item->level === 1 && $item->parentId === 100)
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="ndProfil">
+                                @foreach($dataMenu as $item)
+                                @if($item->level === 1 && $item->parentId === 100)
+                                <li>
+                                    <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
+                                    @if($item->isParent)
+                                    <!-- <== hilangkan data kosong jika tidak ada sub -->
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        @endif
+                                        @foreach($dataMenu as $item1)
+                                        @if($item1->level === 2 && $item1->parentId === $item->id)
                                         <li>
-                                            <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
-                                                @if($item->isParent) <!-- <== hilangkan data kosong jika tidak ada sub -->
-                                                    <ul class="dropdown-menu dropdown-submenu">
-                                                @endif
-                                                @foreach($dataMenu as $item1)
-                                                    @if($item1->level === 2 && $item1->parentId === $item->id)
-                                                        <li>
-                                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                                @if($item->isParent)
-                                                    </ul>
-                                                @endif
+                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
                                         </li>
+                                        @endif
+                                        @endforeach
+                                        @if($item->isParent)
+                                    </ul>
                                     @endif
-                                    @endforeach
-                                </ul>
-                            </li>
-                            <!-- Dropdown -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="ndQualityAssurance" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                                </li>
+                                @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ndQualityAssurance" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Quality Assurance
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="ndQualityAssurance">
-                                    @foreach($dataMenu as $item)
-                                    @if($item->level === 1 && $item->parentId === 200)
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="ndQualityAssurance">
+                                @foreach($dataMenu as $item)
+                                @if($item->level === 1 && $item->parentId === 200)
+                                <li>
+                                    <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
+                                    @if($item->isParent)
+                                    <!-- <== hilangkan data kosong jika tidak ada sub -->
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        @endif
+                                        @foreach($dataMenu as $item1)
+                                        @if($item1->level === 2 && $item1->parentId === $item->id)
                                         <li>
-                                            <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
-                                                @if($item->isParent) <!-- <== hilangkan data kosong jika tidak ada sub -->
-                                                    <ul class="dropdown-menu dropdown-submenu">
-                                                @endif
-                                                @foreach($dataMenu as $item1)
-                                                    @if($item1->level === 2 && $item1->parentId === $item->id)
-                                                        <li>
-                                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                                @if($item->isParent)
-                                                    </ul>
-                                                @endif
+                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
                                         </li>
+                                        @endif
+                                        @endforeach
+                                        @if($item->isParent)
+                                    </ul>
                                     @endif
-                                    @endforeach
-                                </ul>
-                            </li>
-                            <!-- Dropdown -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="ndProsesBisnis" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                                </li>
+                                @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ndProsesBisnis" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Proses Bisnis
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="ndProsesBisnis">
-                                    @foreach($dataMenu as $item)
-                                    @if($item->level === 1 && $item->parentId === 300)
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="ndProsesBisnis">
+                                @foreach($dataMenu as $item)
+                                @if($item->level === 1 && $item->parentId === 300)
+                                <li>
+                                    <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
+                                    @if($item->isParent)
+                                    <!-- <== hilangkan data kosong jika tidak ada sub -->
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        @endif
+                                        @foreach($dataMenu as $item1)
+                                        @if($item1->level === 2 && $item1->parentId === $item->id)
                                         <li>
-                                            <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
-                                                @if($item->isParent) <!-- <== hilangkan data kosong jika tidak ada sub -->
-                                                    <ul class="dropdown-menu dropdown-submenu">
-                                                @endif
-                                                @foreach($dataMenu as $item1)
-                                                    @if($item1->level === 2 && $item1->parentId === $item->id)
-                                                        <li>
-                                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                                @if($item->isParent)
-                                                    </ul>
-                                                @endif
+                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
                                         </li>
+                                        @endif
+                                        @endforeach
+                                        @if($item->isParent)
+                                    </ul>
                                     @endif
-                                    @endforeach
-                                </ul>
-                            </li>
-                            <!-- Dropdown -->
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="ndManajemenRisiko" role="button"
-                                data-bs-toggle="dropdown" aria-expanded="false">
+                                </li>
+                                @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                        <!-- Dropdown -->
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="ndManajemenRisiko" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 Manajemen Risiko
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="ndManajemenRisiko">
-                                    @foreach($dataMenu as $item)
-                                    @if($item->level === 1 && $item->parentId === 400)
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="ndManajemenRisiko">
+                                @foreach($dataMenu as $item)
+                                @if($item->level === 1 && $item->parentId === 400)
+                                <li>
+                                    <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
+                                    @if($item->isParent)
+                                    <!-- <== hilangkan data kosong jika tidak ada sub -->
+                                    <ul class="dropdown-menu dropdown-submenu">
+                                        @endif
+                                        @foreach($dataMenu as $item1)
+                                        @if($item1->level === 2 && $item1->parentId === $item->id)
                                         <li>
-                                            <a class="dropdown-item" href="{{ $item->isParent ? '#' : route('doc.index', $item->id) }}">{{$item->name}} @if($item->isParent) &raquo; @endif</a>
-                                                @if($item->isParent) <!-- <== hilangkan data kosong jika tidak ada sub -->
-                                                    <ul class="dropdown-menu dropdown-submenu">
-                                                @endif
-                                                @foreach($dataMenu as $item1)
-                                                    @if($item1->level === 2 && $item1->parentId === $item->id)
-                                                        <li>
-                                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
-                                                        </li>
-                                                    @endif
-                                                @endforeach
-                                                @if($item->isParent)
-                                                    </ul>
-                                                @endif
+                                            <a class="dropdown-item" href="{{ route('doc.index', $item1->id) }}">{{$item1->name}} @if($item1->isParent) &raquo; @endif</a>
                                         </li>
+                                        @endif
+                                        @endforeach
+                                        @if($item->isParent)
+                                    </ul>
                                     @endif
-                                    @endforeach
-                                </ul>
-                            </li>
-                        </ul>
+                                </li>
+                                @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                    </ul>
                     @endguest
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
                         <!-- Authentication Links -->
                         @guest
-                            @if (Route::has('login'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-                                </li>
-                            @endif
+                        @if (Route::has('login'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                        </li>
+                        @endif
 
-                            @if (Route::has('register'))
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-                                </li>
-                            @endif
+                        @if (Route::has('register'))
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
+                        </li>
+                        @endif
                         @else
-                            <li class="nav-item dropdown">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                        <li class="nav-item dropdown">
+                            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                                {{ Auth::user()->name }}
+                            </a>
+
+                            <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                                <!-- Dropdown -->
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Pembuatan Dokumen baru &raquo;
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-submenu-left" aria-labelledby="ndPembuatanDok">
+                                        <li>
+                                            <a class="dropdown-item" href="#">Formulir pengajuan</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">SOP Mikro</a>
+                                        </li>
+                                        <li>
+                                            <a class="dropdown-item" href="#">dll</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- Dropdown -->
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Revisi Dokumen &raquo;
+                                    </a>
+                                    <ul class="dropdown-menu dropdown-submenu-left" aria-labelledby="ndPembuatanDok">
+                                        <li>
+                                            <a class="dropdown-item" href="#">Formulir pengajuan</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <!-- Dropdown -->
+                                <li>
+                                    <a class="dropdown-item" href="#">
+                                        Dokumen Kadaluarsa
+                                    </a>
+                                </li>
+                                <!-- Dropdown -->
+                                <li>
+                                    <a class="dropdown-item" href="{{route('doc.form')}}">
+                                        Upload Dokumen
+                                    </a>
+                                </li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                                        document.getElementById('logout-form').submit();">
+                                    {{ __('Logout') }}
                                 </a>
 
-                                <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-                                        <!-- Dropdown -->
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                            Pembuatan Dokumen baru &raquo;
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-submenu-left" aria-labelledby="ndPembuatanDok">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Formulir pengajuan</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">SOP Mikro</a>
-                                                    </li>
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">dll</a>
-                                                    </li>
-                                            </ul>
-                                        </li>
-                                        <!-- Dropdown -->
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                            Revisi Dokumen &raquo;
-                                            </a>
-                                            <ul class="dropdown-menu dropdown-submenu-left" aria-labelledby="ndPembuatanDok">
-                                                    <li>
-                                                        <a class="dropdown-item" href="#">Formulir pengajuan</a>
-                                                    </li>
-                                            </ul>
-                                        </li>
-                                        <!-- Dropdown -->
-                                        <li>
-                                            <a class="dropdown-item" href="#">
-                                            Dokumen Kadaluarsa
-                                            </a>
-                                        </li>
-                                        <!-- Dropdown -->
-                                        <li>
-                                            <a class="dropdown-item" href="{{route('doc.form')}}">
-                                            Upload Dokumen
-                                            </a>
-                                        </li>
-                                        <li><hr class="dropdown-divider"></li>
-                                        <a class="dropdown-item" href="{{ route('logout') }}"
-                                        onclick="event.preventDefault();
-                                                        document.getElementById('logout-form').submit();">
-                                            {{ __('Logout') }}
-                                        </a>
-
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                                        @csrf
-                                    </form>
-                                </ul>
-                            </li>
+                                <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                                    @csrf
+                                </form>
+                            </ul>
+                        </li>
                         @endguest
                     </ul>
                 </div>
@@ -245,7 +248,11 @@
             @yield('content')
         </main>
     </div>
+    
+    <script defer src="https://use.fontawesome.com/releases/v5.15.4/js/all.js" integrity="sha384-rOA1PnstxnOBLzCLMcre8ybwbTmemjzdNlILg8O7z1lUkLXozs4DHonlDtnE7fpc" crossorigin="anonymous"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <script src="js/main.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/v/dt/dt-1.12.1/datatables.min.js"></script>
+    <script src="{{ asset('js/main.js') }}"></script>
+    @stack('scripts')
 </body>
 </html>

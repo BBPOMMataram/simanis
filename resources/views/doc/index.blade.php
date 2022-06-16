@@ -21,7 +21,7 @@
                                 <tr>
                                     <td>{{ $loop->index + 1 }}</td>
                                     <td>{{ $item->name }}</td>
-                                    <td><a href="{{ Storage::url($item->files)}}" target="_blank">Doc</a></td>
+                                    <td><a href="{{ Storage::url($item->files)}}" target="_blank"><i class="fas fa-link"></i></a></td>
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -33,3 +33,10 @@
     </div>
 </div>
 @endsection
+@push('scripts')
+    <script>
+        $(function(){
+            $('table').DataTable({})
+        })
+    </script>
+@endpush
